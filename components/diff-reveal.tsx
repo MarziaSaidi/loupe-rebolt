@@ -35,7 +35,7 @@ export function DiffReveal({
       {/* Before layer, full — occupies the same grid cell as After so the
           container auto-sizes to whichever layer is taller. */}
       <div className="relative" style={{ gridArea: "1 / 1" }}>
-        <div className="pointer-events-none absolute left-3 top-3 z-0 rounded-full bg-chrome/80 px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-chrome-ink">
+        <div className="pointer-events-none absolute left-3 top-3 z-0 rounded-full border border-border bg-surface-2 px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-ink-soft">
           Before
         </div>
         {before}
@@ -74,7 +74,7 @@ export function DiffReveal({
           }}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.96 }}
-          className="absolute top-1/2 left-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full border border-border bg-surface shadow-[0_2px_8px_rgba(20,20,15,0.18)] outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+          className="absolute top-1/2 left-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full border border-border bg-surface shadow-[0_2px_8px_rgba(20,20,15,0.18)] outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
         >
           <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
             <path d="M4 1 L1 5 L4 9" stroke="var(--ink-soft)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />

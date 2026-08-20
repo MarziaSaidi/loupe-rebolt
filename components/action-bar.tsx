@@ -23,13 +23,13 @@ export function ActionBar({
       <div className="flex items-center gap-2">
         <button
           onClick={onUndo}
-          className="rounded-md border border-border px-3 py-1.5 text-[13px] font-medium text-ink-soft outline-none transition hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-accent-soft"
+          className="rounded-md border border-border px-3 py-1.5 text-[13px] font-medium text-ink-soft outline-none transition hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-accent/25"
         >
           Undo
         </button>
         <button
           onClick={onAccept}
-          className="flex items-center gap-1.5 rounded-md bg-good px-3.5 py-1.5 text-[13px] font-medium text-white outline-none transition hover:brightness-105 focus-visible:ring-2 focus-visible:ring-good focus-visible:ring-offset-2"
+          className="flex items-center gap-1.5 rounded-md bg-good px-3.5 py-1.5 text-[13px] font-medium text-white outline-none transition hover:brightness-105 focus-visible:ring-2 focus-visible:ring-good focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
             <path d="M2.5 6.2 L5 8.7 L9.5 3.5" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />

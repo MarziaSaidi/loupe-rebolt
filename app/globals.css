@@ -1,24 +1,21 @@
 @import "tailwindcss";
 
+/* Rebolt's own brand: pitch black, pure white, #006AFE blue, Inter + Geist Mono. */
 :root {
-  --ink: #14151a;
-  --ink-soft: #53565f;
-  --muted: #666974;
-  --canvas: #f5f5f2;
-  --surface: #ffffff;
-  --surface-2: #ece9e1;
-  --border: #e1dfd6;
+  --ink: #f5f5f3;
+  --ink-soft: #b9bac0;
+  --muted: #8f9299;
+  --canvas: #0d0e10;
+  --surface: #17181b;
+  --surface-2: #1e1f23;
+  --border: #2a2b2f;
   --accent: #006afe;
-  --accent-soft: #e8f0ff;
-  --accent-ink: #0047b3;
-  --good: #197043;
-  --good-soft: #e2f4e9;
-  --warning: #8a5509;
-  --warning-soft: #fbf0dc;
-  --chrome: #0d0e10;
-  --chrome-ink: #f5f5f2;
-  --chrome-line: #232428;
-  --chrome-muted: #8d9199;
+  --accent-soft: #14213d;
+  --accent-ink: #7fa8ff;
+  --good: #39c07a;
+  --good-soft: #0f2a1c;
+  --warning: #e8a53d;
+  --warning-soft: #33230b;
 }
 
 @theme inline {
@@ -36,10 +33,6 @@
   --color-good-soft: var(--good-soft);
   --color-warning: var(--warning);
   --color-warning-soft: var(--warning-soft);
-  --color-chrome: var(--chrome);
-  --color-chrome-ink: var(--chrome-ink);
-  --color-chrome-line: var(--chrome-line);
-  --color-chrome-muted: var(--chrome-muted);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 }

@@ -75,7 +75,7 @@ export function AnnotatableRegion({
 
   const outline =
     status === "annotating"
-      ? "border-accent ring-2 ring-accent-soft"
+      ? "border-accent ring-2 ring-accent/25"
       : hover && interactive
         ? "border-accent/60"
         : "border-transparent";
@@ -112,7 +112,7 @@ export function AnnotatableRegion({
                 e.stopPropagation();
                 onStatusChange("annotating");
               }}
-              className="absolute right-2.5 top-2.5 z-20 flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[12px] font-medium text-white shadow-[0_2px_8px_rgba(0,106,254,0.35)] outline-none focus-visible:ring-2 focus-visible:ring-accent-ink focus-visible:ring-offset-2"
+              className="absolute right-2.5 top-2.5 z-20 flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[12px] font-medium text-white shadow-[0_2px_8px_rgba(0,106,254,0.35)] outline-none focus-visible:ring-2 focus-visible:ring-accent-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
             >
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
                 <path d="M2 10 L2 8.2 L7.8 2.4 L9.6 4.2 L3.8 10 Z" fill="white" />
@@ -158,7 +158,7 @@ export function AnnotatableRegion({
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="absolute -bottom-9 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full bg-chrome px-3 py-1.5 text-[12px] text-chrome-ink shadow-md"
+              className="absolute -bottom-9 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface-2 px-3 py-1.5 text-[12px] text-ink shadow-md"
             >
               {nudge}
             </motion.div>
