@@ -98,38 +98,47 @@ export function AnnotatableRegion({
           }
         }}
       >
+        {/* Reserved header row — fixed height, always present, in normal
+            flow. Not an overlay: it can never collide with content above
+            the card (the region doesn't know what its siblings are) or
+            inside it (doesn't know how tall the table header wraps to).
+            The old approach floated these absolutely and guessed at a
+            pixel offset that happened to clear one specific layout;
+            reserved space clears every layout by construction. */}
+        <div className="flex h-9 items-center justify-end px-2">
+          <AnimatePresence>
+            {interactive && hover && (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onStatusChange("annotating");
+                }}
+                className="z-20 flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[12px] font-medium text-white shadow-[0_2px_8px_rgba(0,106,254,0.35)] outline-none focus-visible:ring-2 focus-visible:ring-accent-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+              >
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
+                  <path d="M2 10 L2 8.2 L7.8 2.4 L9.6 4.2 L3.8 10 Z" fill="white" />
+                </svg>
+                Annotate
+              </motion.button>
+            )}
+          </AnimatePresence>
+
+          {status === "done" && (
+            <div className="pointer-events-none flex items-center gap-1 rounded-full border border-border bg-good-soft px-2.5 py-1 text-[11px] font-medium text-good">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
+                <path d="M2.5 6.2 L5 8.7 L9.5 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Refined
+            </div>
+          )}
+        </div>
+
         <div className={status === "annotating" ? "pointer-events-none" : ""}>
           {status === "done" ? afterContent : beforeContent}
         </div>
-
-        <AnimatePresence>
-          {interactive && hover && (
-            <motion.button
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              onClick={(e) => {
-                e.stopPropagation();
-                onStatusChange("annotating");
-              }}
-              className="absolute -top-9 right-3 z-20 flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[12px] font-medium text-white shadow-[0_2px_8px_rgba(0,106,254,0.35)] outline-none focus-visible:ring-2 focus-visible:ring-accent-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
-            >
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
-                <path d="M2 10 L2 8.2 L7.8 2.4 L9.6 4.2 L3.8 10 Z" fill="white" />
-              </svg>
-              Annotate
-            </motion.button>
-          )}
-        </AnimatePresence>
-
-        {status === "done" && (
-          <div className="pointer-events-none absolute -top-9 right-3 z-20 flex items-center gap-1 rounded-full border border-border bg-good-soft px-2.5 py-1 text-[11px] font-medium text-good shadow-[0_2px_6px_rgba(0,0,0,0.3)]">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
-              <path d="M2.5 6.2 L5 8.7 L9.5 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            Refined
-          </div>
-        )}
 
         <AnimatePresence>
           {status === "annotating" && (
