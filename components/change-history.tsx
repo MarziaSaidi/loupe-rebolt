@@ -34,16 +34,16 @@ export function ChangeHistory({ entries }: { entries: HistoryEntry[] }) {
                 transition={{ duration: 0.22 }}
                 className="border-l-2 border-good/60 pl-3"
               >
-                <div className="flex items-center gap-1.5 text-[11.5px] font-medium text-ink">
+                <div className="flex items-center gap-1.5 text-[12px] font-medium text-ink">
                   <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
                     <path d="M2.5 6.2 L5 8.7 L9.5 3.5" stroke="var(--good)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   {entry.regionLabel}
                 </div>
-                <p className="mt-0.5 text-[12.5px] leading-snug text-ink-soft">
+                <p className="mt-0.5 text-[13px] leading-snug text-ink-soft">
                   &ldquo;{entry.prompt}&rdquo;
                 </p>
-                <span className="mt-0.5 block font-mono text-[10.5px] text-muted">
+                <span className="mt-0.5 block font-mono text-[11px] text-muted">
                   {entry.time}
                 </span>
               </motion.li>

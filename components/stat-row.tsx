@@ -27,7 +27,7 @@ export function StatRowBefore() {
       {statData.map((stat) => (
         <div key={stat.label} className="flex items-baseline gap-2">
           <span className="text-[13px] text-ink-soft">{stat.label}:</span>
-          <span className="font-mono text-[15px] text-ink">{stat.value}</span>
+          <span className="font-mono text-[16px] text-ink">{stat.value}</span>
         </div>
       ))}
     </div>
@@ -45,11 +45,11 @@ export function StatRowAfter() {
             className="relative overflow-hidden rounded-lg border border-border bg-surface px-4 py-3.5 shadow-[0_1px_2px_rgba(20,20,15,0.04)]"
           >
             <div className={`absolute inset-x-0 top-0 h-[3px] ${tone.bar}`} />
-            <div className="text-[11.5px] font-medium uppercase tracking-wide text-muted">
+            <div className="text-[12px] font-medium uppercase tracking-wide text-muted">
               {stat.label}
             </div>
             <div className="mt-1.5 flex items-baseline gap-2">
-              <span className="font-mono text-[26px] font-medium leading-none tabular-nums text-ink">
+              <span className="font-mono text-[28px] font-medium leading-none tabular-nums text-ink">
                 {stat.value}
               </span>
             </div>

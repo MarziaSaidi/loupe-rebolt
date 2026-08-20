@@ -34,7 +34,7 @@ export function AnnotationPopover({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         rows={2}
-        className="w-full resize-none rounded-lg border border-border bg-canvas px-3 py-2 text-[13.5px] text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent-soft"
+        className="w-full resize-none rounded-lg border border-border bg-canvas px-3 py-2 text-[14px] text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent-soft"
         onKeyDown={(e) => {
           if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
             e.preventDefault();
@@ -44,18 +44,18 @@ export function AnnotationPopover({
         }}
       />
       <div className="mt-2 flex items-center justify-between">
-        <span className="font-mono text-[10.5px] text-muted">⌘ + Enter to send</span>
+        <span className="font-mono text-[11px] text-muted">⌘ + Enter to send</span>
         <div className="flex gap-1.5">
           <button
             onClick={onCancel}
-            className="rounded-md px-2.5 py-1.5 text-[12.5px] font-medium text-ink-soft hover:bg-surface-2"
+            className="rounded-md px-2.5 py-1.5 text-[13px] font-medium text-ink-soft outline-none transition hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-accent-soft"
           >
             Cancel
           </button>
           <button
             onClick={() => value.trim() && onSubmit(value.trim())}
             disabled={!value.trim()}
-            className="rounded-md bg-accent px-3 py-1.5 text-[12.5px] font-medium text-white transition hover:bg-accent-ink disabled:opacity-40"
+            className="rounded-md bg-accent px-3 py-1.5 text-[13px] font-medium text-white outline-none transition hover:bg-accent-ink focus-visible:ring-2 focus-visible:ring-accent-ink focus-visible:ring-offset-2 disabled:opacity-40"
           >
             Send to Rebolt
           </button>
