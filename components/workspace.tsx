@@ -14,6 +14,45 @@ function timeNow() {
   return new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 }
 
+/** Lives in the section heading row, next to the label — not floating over
+ * the card below it. That way it can never collide with the card's own
+ * content (e.g. a header row that wraps to two lines) or with whatever
+ * else is in this same heading row (e.g. an item count), since it's just
+ * another item in that row, not an absolutely-positioned guess. */
+function RegionBadge({
+  status,
+  disabled,
+  onAnnotate,
+}: {
+  status: RegionStatus;
+  disabled?: boolean;
+  onAnnotate: () => void;
+}) {
+  if (status === "done") {
+    return (
+      <span className="inline-flex items-center gap-1 rounded-full border border-border bg-good-soft px-2.5 py-1 text-[11px] font-medium text-good">
+        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
+          <path d="M2.5 6.2 L5 8.7 L9.5 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        Refined
+      </span>
+    );
+  }
+  if (status !== "idle") return null;
+  return (
+    <button
+      onClick={onAnnotate}
+      disabled={disabled}
+      className="flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[12px] font-medium text-white outline-none transition hover:brightness-110 focus-visible:ring-2 focus-visible:ring-accent-ink focus-visible:ring-offset-2 focus-visible:ring-offset-canvas disabled:cursor-not-allowed disabled:opacity-40"
+    >
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
+        <path d="M2 10 L2 8.2 L7.8 2.4 L9.6 4.2 L3.8 10 Z" fill="white" />
+      </svg>
+      Annotate
+    </button>
+  );
+}
+
 export function Workspace() {
   const [statuses, setStatuses] = useState<Statuses>({ stats: "idle", table: "idle" });
   const [history, setHistory] = useState<HistoryEntry[]>([]);
@@ -52,11 +91,19 @@ export function Workspace() {
           <div className="mb-5">
             <h1 className="text-[20px] font-medium text-ink">Inventory &amp; Orders</h1>
             <p className="mt-1 text-[14px] text-ink-soft">
-              Hover a section below, then click Annotate to request a change.
+              Click Annotate on a section below to request a change.
             </p>
           </div>
 
           <section className="mb-8">
+            <div className="mb-2 flex items-center justify-between">
+              <h2 className="text-[13px] font-medium text-ink-soft">Summary metrics</h2>
+              <RegionBadge
+                status={statuses.stats}
+                disabled={anyBusy && statuses.stats === "idle"}
+                onAnnotate={() => setStatus("stats", "annotating")}
+              />
+            </div>
             <AnnotatableRegion
               scenario={scenarios.stats}
               status={statuses.stats}
@@ -73,7 +120,14 @@ export function Workspace() {
           <section>
             <div className="mb-2 flex items-center justify-between">
               <h2 className="text-[13px] font-medium text-ink-soft">Full inventory</h2>
-              <span className="font-mono text-[11px] text-muted">9 items</span>
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[11px] text-muted">9 items</span>
+                <RegionBadge
+                  status={statuses.table}
+                  disabled={anyBusy && statuses.table === "idle"}
+                  onAnnotate={() => setStatus("table", "annotating")}
+                />
+              </div>
             </div>
             <AnnotatableRegion
               scenario={scenarios.table}
