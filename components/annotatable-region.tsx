@@ -112,7 +112,7 @@ export function AnnotatableRegion({
                 e.stopPropagation();
                 onStatusChange("annotating");
               }}
-              className="absolute right-2.5 top-2.5 z-20 flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[12px] font-medium text-white shadow-[0_2px_8px_rgba(0,106,254,0.35)] outline-none focus-visible:ring-2 focus-visible:ring-accent-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+              className="absolute -top-9 right-3 z-20 flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[12px] font-medium text-white shadow-[0_2px_8px_rgba(0,106,254,0.35)] outline-none focus-visible:ring-2 focus-visible:ring-accent-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
             >
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
                 <path d="M2 10 L2 8.2 L7.8 2.4 L9.6 4.2 L3.8 10 Z" fill="white" />
@@ -123,7 +123,7 @@ export function AnnotatableRegion({
         </AnimatePresence>
 
         {status === "done" && (
-          <div className="pointer-events-none absolute right-2.5 top-2.5 z-20 flex items-center gap-1 rounded-full bg-good-soft px-2.5 py-1 text-[11px] font-medium text-good">
+          <div className="pointer-events-none absolute -top-9 right-3 z-20 flex items-center gap-1 rounded-full border border-border bg-good-soft px-2.5 py-1 text-[11px] font-medium text-good shadow-[0_2px_6px_rgba(0,0,0,0.3)]">
             <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
               <path d="M2.5 6.2 L5 8.7 L9.5 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

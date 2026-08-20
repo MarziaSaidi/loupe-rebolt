@@ -19,7 +19,7 @@ export function DiffReveal({
     if (!el) return;
     const rect = el.getBoundingClientRect();
     const raw = ((clientX - rect.left) / rect.width) * 100;
-    setPct(Math.min(96, Math.max(4, raw)));
+    setPct(Math.min(100, Math.max(0, raw)));
   }, []);
 
   return (
@@ -33,20 +33,27 @@ export function DiffReveal({
       onPointerLeave={() => (dragging.current = false)}
     >
       {/* Before layer, full — occupies the same grid cell as After so the
-          container auto-sizes to whichever layer is taller. */}
-      <div className="relative" style={{ gridArea: "1 / 1" }}>
-        <div className="pointer-events-none absolute left-3 top-3 z-0 rounded-full border border-border bg-surface-2 px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-ink-soft">
+          container auto-sizes to whichever layer is taller. Padding-top
+          on both layers (not just an overlay) reserves real space for the
+          tag instead of floating it on top of the table's header row —
+          it can't hang outside the box either, since the outer container
+          clips to rounded corners and the After layer is itself clipped
+          by clip-path, which would erase anything positioned above it. */}
+      <div className="relative bg-surface pt-9" style={{ gridArea: "1 / 1" }}>
+        <div className="pointer-events-none absolute left-3 top-2.5 z-0 rounded-full border border-border bg-surface-2 px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-ink-soft">
           Before
         </div>
         {before}
       </div>
 
-      {/* After layer, clipped */}
+      {/* After layer, clipped. Needs its own opaque background — without
+          one, transparent rows let the Before layer show through wherever
+          After is visible, since both share the same grid cell. */}
       <div
-        className="relative z-[5]"
+        className="relative z-[5] bg-surface pt-9"
         style={{ gridArea: "1 / 1", clipPath: `inset(0 ${100 - pct}% 0 0)` }}
       >
-        <div className="pointer-events-none absolute left-3 top-3 z-10 rounded-full bg-accent px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-white">
+        <div className="pointer-events-none absolute left-3 top-2.5 z-10 rounded-full bg-accent px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-white">
           After
         </div>
         {after}
@@ -62,15 +69,15 @@ export function DiffReveal({
           tabIndex={0}
           aria-label="Drag to compare before and after"
           aria-valuenow={Math.round(pct)}
-          aria-valuemin={4}
-          aria-valuemax={96}
+          aria-valuemin={0}
+          aria-valuemax={100}
           onPointerDown={(e) => {
             dragging.current = true;
             (e.target as Element).setPointerCapture?.(e.pointerId);
           }}
           onKeyDown={(e) => {
-            if (e.key === "ArrowLeft") setPct((p) => Math.max(4, p - 4));
-            if (e.key === "ArrowRight") setPct((p) => Math.min(96, p + 4));
+            if (e.key === "ArrowLeft") setPct((p) => Math.max(0, p - 4));
+            if (e.key === "ArrowRight") setPct((p) => Math.min(100, p + 4));
           }}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.96 }}
