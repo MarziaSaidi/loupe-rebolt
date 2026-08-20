@@ -3,7 +3,7 @@
 :root {
   --ink: #14151a;
   --ink-soft: #53565f;
-  --muted: #8a8d97;
+  --muted: #666974;
   --canvas: #f5f5f2;
   --surface: #ffffff;
   --surface-2: #ece9e1;
@@ -11,9 +11,9 @@
   --accent: #006afe;
   --accent-soft: #e8f0ff;
   --accent-ink: #0047b3;
-  --good: #1f8a55;
+  --good: #197043;
   --good-soft: #e2f4e9;
-  --warning: #a8660b;
+  --warning: #8a5509;
   --warning-soft: #fbf0dc;
   --chrome: #0d0e10;
   --chrome-ink: #f5f5f2;
