@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #14151a;
+  --ink-soft: #53565f;
+  --muted: #8a8d97;
+  --canvas: #f5f5f2;
+  --surface: #ffffff;
+  --surface-2: #ece9e1;
+  --border: #e1dfd6;
+  --accent: #006afe;
+  --accent-soft: #e8f0ff;
+  --accent-ink: #0047b3;
+  --good: #1f8a55;
+  --good-soft: #e2f4e9;
+  --warning: #a8660b;
+  --warning-soft: #fbf0dc;
+  --chrome: #0d0e10;
+  --chrome-ink: #f5f5f2;
+  --chrome-line: #232428;
+  --chrome-muted: #8d9199;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-chrome: var(--chrome);
+  --color-chrome-ink: var(--chrome-ink);
+  --color-chrome-line: var(--chrome-line);
+  --color-chrome-muted: var(--chrome-muted);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
