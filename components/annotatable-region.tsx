@@ -8,6 +8,34 @@ import { ProcessingOverlay } from "./processing-overlay";
 import { DiffReveal, ChangeList } from "./diff-reveal";
 import { ActionBar } from "./action-bar";
 
+const STOPWORDS = new Set([
+  "the", "a", "an", "to", "this", "and", "for", "on", "in", "it", "that",
+  "what", "should", "be", "can", "i", "or", "at", "of", "is", "are", "with",
+  "from", "me", "my", "tell", "whats", "dont",
+]);
+
+function tokenize(text: string): Set<string> {
+  return new Set(
+    text
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((w) => w.length > 2 && !STOPWORDS.has(w)),
+  );
+}
+
+/** Loose word-overlap check against the seeded prompt — not real NLP, just
+ * enough to tell a genuinely unrelated note from a paraphrase or tweak of
+ * the suggested one, so the demo can be honest about which it got. */
+function isCloseMatch(input: string, seed: string): boolean {
+  const a = tokenize(input);
+  const b = tokenize(seed);
+  if (a.size === 0 || b.size === 0) return true;
+  let overlap = 0;
+  for (const w of a) if (b.has(w)) overlap++;
+  return overlap / Math.min(a.size, b.size) >= 0.34;
+}
+
 export function AnnotatableRegion({
   scenario,
   status,
@@ -41,6 +69,7 @@ export function AnnotatableRegion({
 }) {
   const [hover, setHover] = useState(false);
   const [lastPrompt, setLastPrompt] = useState(scenario.defaultPrompt);
+  const [looseMatch, setLooseMatch] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
   const interactive = status === "idle" && !disabled;
 
@@ -109,6 +138,7 @@ export function AnnotatableRegion({
               onCancel={() => onStatusChange("idle")}
               onSubmit={(text) => {
                 setLastPrompt(text);
+                setLooseMatch(!isCloseMatch(text, scenario.defaultPrompt));
                 onStatusChange("processing");
               }}
             />
@@ -138,6 +168,15 @@ export function AnnotatableRegion({
 
       {status === "reviewing" && (
         <div className="mt-3 animate-[fadeUp_0.25s_ease-out]">
+          {looseMatch && (
+            <div className="mb-2 flex items-center gap-1.5 text-[12px] text-muted">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden className="flex-shrink-0">
+                <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.1" />
+                <path d="M6 5.2 V8.6 M6 3.6 V3.7" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
+              </svg>
+              Showing Loupe&rsquo;s closest supported edit for this view — not an exact read of your note.
+            </div>
+          )}
           <DiffReveal before={compareBefore ?? beforeContent} after={compareAfter ?? afterContent} />
           <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-[1fr_auto]">
             <div className="rounded-xl border border-border bg-surface px-4 py-3">

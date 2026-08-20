@@ -82,7 +82,7 @@ export function Workspace() {
               beforeContent={<InventoryTableBefore compact />}
               compareBefore={<InventoryTableBefore />}
               afterContent={<InventoryTableAfter scrollable />}
-              compareAfter={<InventoryTableAfter />}
+              compareAfter={<InventoryTableAfter sorted={false} />}
               onAccept={(p) => accept("table", p)}
               onUndo={() => undo("table")}
               disabled={anyBusy && statuses.table === "idle"}

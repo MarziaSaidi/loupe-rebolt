@@ -29,6 +29,9 @@ export function AnnotationPopover({
         </svg>
         Point at what should change
       </div>
+      <p className="mb-2 text-[12px] leading-snug text-muted">
+        Use the suggested note below, or write your own — Loupe matches it to the closest supported edit for this view.
+      </p>
       <textarea
         autoFocus
         value={value}

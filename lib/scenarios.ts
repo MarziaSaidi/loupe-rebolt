@@ -100,7 +100,7 @@ export const scenarios: Record<RegionId, Scenario> = {
       "Added zebra striping to track rows across columns",
       "Right-aligned quantities with tabular numerals",
       "Converted status text into colored pills",
-      "Grouped rows by urgency — items needing attention float to top",
+      "Once kept, rows regroup by urgency — items needing attention float to top",
       "Pinned the header while scrolling",
     ],
   },

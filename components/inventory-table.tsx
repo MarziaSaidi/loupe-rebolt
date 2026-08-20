@@ -60,8 +60,20 @@ const statusPill: Record<InventoryRow["status"], string> = {
 
 const urgency: Record<InventoryRow["status"], number> = { low: 0, ordered: 1, ok: 2 };
 
-export function InventoryTableAfter({ scrollable = false }: { scrollable?: boolean }) {
-  const rows = [...inventoryRows].sort((a, b) => urgency[a.status] - urgency[b.status]);
+export function InventoryTableAfter({
+  scrollable = false,
+  sorted = true,
+}: {
+  scrollable?: boolean;
+  /** Group rows by urgency. Off during the before/after comparison so each
+   * row stays spatially aligned with its "before" counterpart — grouping
+   * is a layout change, not a per-row style diff, so it applies once the
+   * edit is accepted rather than mid-comparison. */
+  sorted?: boolean;
+}) {
+  const rows = sorted
+    ? [...inventoryRows].sort((a, b) => urgency[a.status] - urgency[b.status])
+    : inventoryRows;
   const table = (
     <table className="w-full min-w-[760px] table-fixed border-collapse text-[13px]">
       <Cols />
